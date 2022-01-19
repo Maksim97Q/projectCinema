@@ -1,0 +1,24 @@
+package com.cinema.hibernate;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import java.util.logging.Logger;
+
+public class HibernateUtil {
+    private static final Logger log = Logger.getLogger(HibernateUtil.class.getName());
+    private static final SessionFactory sessionFactory = buildSessionFactory();
+
+    private static SessionFactory buildSessionFactory() {
+        try {
+            return new Configuration().configure("/hibernate.cfg.xml").buildSessionFactory();
+        } catch (Throwable e) {
+            log.info("Initial SessionFactory creation failed " + e);
+            throw new ExceptionInInitializerError(e);
+        }
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+}
