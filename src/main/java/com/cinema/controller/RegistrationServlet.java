@@ -1,5 +1,6 @@
 package com.cinema.controller;
 
+import com.cinema.dao.UserDAOImpl;
 import com.cinema.model.User;
 import com.cinema.service.UserServiceImpl;
 import jakarta.servlet.ServletException;
@@ -10,10 +11,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/Registration")
 public class RegistrationServlet extends HttpServlet {
+    private final UserDAOImpl userDAO = UserServiceImpl.getUserDAO();
+    private final List<User> users = userDAO.getUsers();
     private final User user = UserServiceImpl.getUser();
     private final UserServiceImpl userService = UserServiceImpl.getUserService();
 
@@ -31,6 +35,7 @@ public class RegistrationServlet extends HttpServlet {
             if (userService.create(user)) {
                 request.getSession().setAttribute("name", user.getName());
                 request.getSession().setAttribute("role", "user");
+                users.add(user);
                 writer.print("Hello " + user.getName());
             } else {
                 writer.print("Логин занят, пожалуйста введите другой");

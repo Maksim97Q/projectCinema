@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     public boolean delete(User user) {
         try {
             if (userDAO.delete(user))
-            return true;
+                return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,5 +57,17 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean update(User user) {
+        try {
+            if (userDAO.update(user)) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

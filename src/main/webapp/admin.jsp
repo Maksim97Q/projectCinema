@@ -22,27 +22,28 @@
     request.getSession().getAttribute("lists");
 %>
 <h2>Таблица всех пользователей</h2>
-<table class="table" style="width: 20%;">
+<table class="table" style="width: 30%">
     <tr>
         <th>id</th>
         <th>name</th>
         <th>password</th>
     </tr>
-    <c:forEach var="users" items="${usersList}" varStatus="lp">
+    <c:forEach var="users" items="${sessionScope.usersList}" varStatus="lp">
         <tr>
-            <td><c:out value="${users.id}"/></td>
+            <td><c:out value="${lp.index}"/></td>
             <td><c:out value="${users.name}"/></td>
             <td><c:out value="${users.password}"/></td>
-            <td><a href="DeleteServlet?id=${lp.index}">удалить</a></td>
+            <td><a href="Delete?id=${lp.index}">удалить</a></td>
         </tr>
     </c:forEach>
-<%--    <tr>--%>
-<%--        <form action="DeleteServlet" method="post">--%>
-<%--            <input type="text" name="id" placeholder="id"--%>
-<%--                   required="required"><br> <br>--%>
-<%--            <input type="submit" value="delete">--%>
-<%--        </form>--%>
-<%--    </tr>--%>
+    <tr>
+        <form action="Update" method="post">
+            <input type="text" name="id" placeholder="id">
+            <input type="text" name="name1" placeholder="update_Name">
+            <input type="text" name="password1" placeholder="update_password">
+            <input type="submit" value="update">
+        </form>
+    </tr>
 </table>
 </body>
 </html>

@@ -37,7 +37,8 @@ public class ProfileServlet extends HttpServlet {
                     request.getRequestDispatcher("admin.jsp").include(request, response);
                     break;
                 case "user":
-                    out.print("Hello " + name + ", you entered your profile");
+                    request.getRequestDispatcher("user.jsp").include(request, response);
+                    break;
             }
         } else {
             out.print("Для начала авторизуйтесь");

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@WebServlet("/DeleteServlet")
+@WebServlet("/Delete")
 public class DeleteServlet extends HttpServlet {
     private final UserDAOImpl userDAO = UserServiceImpl.getUserDAO();
     private final UserServiceImpl userService = UserServiceImpl.getUserService();

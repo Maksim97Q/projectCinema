@@ -1,25 +1,45 @@
 package com.cinema.hibernate;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
 
-//@Entity
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Data
-//@Table(name = "tickets")
-//public class Ticket {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int id;
-//    @Column(name = "price")
-//    private int price;
-//    @Column(name = "place-number")
-//    private int place_number;
-//    @Column(name = "id_movie")
-//    private int id_movie;
-//
-//}
+@Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "tickets")
+public class Ticket implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column
+    private int price;
+    @Column
+    private int place_number;
+    @Column
+    private String data;
+    @OneToOne
+    @JoinColumn
+    private Worker worker;
+
+    public Ticket(int price, int place_number, String data) {
+        this.price = price;
+        this.place_number = place_number;
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", price=" + price +
+                ", place_number=" + place_number +
+                ", data='" + data + '\'' +
+                '}';
+    }
+}

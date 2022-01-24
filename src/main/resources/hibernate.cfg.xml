@@ -8,9 +8,11 @@
         <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/public</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">password</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MariaDBDialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
         <mapping class="com.cinema.hibernate.Worker"/>
+        <mapping class="com.cinema.hibernate.Ticket"/>
+        <mapping class="com.cinema.hibernate.Movie"/>
     </session-factory>
 </hibernate-configuration>

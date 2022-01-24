@@ -1,63 +1,71 @@
 package com.cinema.hibernate;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 public class Util {
     private final Session session = HibernateUtil.getSessionFactory().openSession();
 
-    public void add() {
-        try {
+    //+
+    public boolean add(Worker worker) {
+        Query query = session.createQuery("SELECT name FROM Worker WHERE name=:name")
+                .setParameter("name", worker.getName());
+        if (query.list().isEmpty()) {
             session.beginTransaction();
-            Worker worker = new Worker(1, "max11", 11, 3000);
             session.save(worker);
             session.getTransaction().commit();
-        } finally {
             session.close();
+            return true;
         }
+        return false;
     }
 
-    public void delete() {
-        try {
+    //+
+    public boolean delete(Worker worker) {
+        Worker worker1 = session.get(Worker.class, worker.getId());
+        if (worker1 != null) {
             session.beginTransaction();
-            Worker del = session.get(Worker.class, 22);
-            session.delete(del);
+            session.delete(worker1);
             session.getTransaction().commit();
-        } catch (Exception e) {
-//            log.error("не найдет работник");
-        } finally {
             session.close();
+            return true;
         }
+        return false;
     }
 
-    public void read(String name) {
-        try {
-            session.beginTransaction();
-            Worker worker = session.get(Worker.class, 23);
-            Query query = session.createQuery("from Worker where name=:name");
-            query.setParameter("name", name);
-            Worker worker1 = (Worker) query.uniqueResult();
-            System.out.println(worker1);
-            session.getTransaction().commit();
-        } catch (NullPointerException e) {
-//            log.error("работник не найден");
-        } finally {
-            session.close();
-        }
+    //+
+    public int read(Worker worker) {
+        Query query = session.createQuery("FROM Worker WHERE name=:name AND age=:age", Worker.class)
+                .setParameter("name", worker.getName())
+                .setParameter("age", worker.getAge());
+        return ((Worker) query.getSingleResult()).getId();
     }
 
-    public void update() {
-        try {
+    //+
+    public boolean update(Worker worker) {
+        Worker worker1 = session.get(Worker.class, worker.getId());
+        if (worker1 != null) {
             session.beginTransaction();
-            Worker worker = session.get(Worker.class, 23);
-            worker.setName("maksim");
-            worker.setAge(24);
+            worker1.setName(worker.getName());
+            worker1.setIncome(worker.getIncome());
+            session.update(worker1);
             session.getTransaction().commit();
-        } catch (Exception e) {
-//            log.error("работник не найден");
-        } finally {
             session.close();
+            return true;
         }
+        return false;
+    }
+
+    //+
+    public List<Worker> workerList1 = new ArrayList<>();
+
+    public List<Worker> readAll() {
+        return workerList1 = session.createQuery("FROM Worker", Worker.class).list();
     }
 }

@@ -87,7 +87,20 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void update(User user) {
-
+    public boolean update(User user) throws SQLException {
+        PreparedStatement stmt = connection
+                .prepareStatement("SELECT name, password FROM users WHERE id=?");
+        stmt.setInt(1, user.getId());
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            PreparedStatement stm = connection
+                    .prepareStatement("UPDATE users SET name=?, password=? WHERE id=?");
+            stm.setString(1, user.getName());
+            stm.setString(2, user.getPassword());
+            stm.setInt(3, user.getId());
+            stm.execute();
+            return true;
+        }
+        return false;
     }
 }
