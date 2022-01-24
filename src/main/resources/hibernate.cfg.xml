@@ -11,8 +11,9 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MariaDBDialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
+        <mapping class="com.cinema.model.User"/>
         <mapping class="com.cinema.hibernate.Worker"/>
-        <mapping class="com.cinema.hibernate.Ticket"/>
-        <mapping class="com.cinema.hibernate.Movie"/>
+<!--        <mapping class="com.cinema.model.Ticket"/>-->
+<!--        <mapping class="com.cinema.model.Movie"/>-->
     </session-factory>
 </hibernate-configuration>

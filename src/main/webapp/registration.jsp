@@ -34,7 +34,7 @@
     <form action="Registration" method="post">
         <input type="text" name="name" placeholder="username" minlength="4" maxlength="13"
                required="required"><br> <br>
-        <input type="password" name="password" placeholder="password" minlength="4" maxlength="13"
+        <input type="text" name="password" placeholder="password" minlength="4" maxlength="13"
                required="required"><br> <br>
         <input type="submit" value="registration">
     </form>

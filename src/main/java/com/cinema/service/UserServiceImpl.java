@@ -48,11 +48,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public String read(User user) {
         try {
-            if (userDAO.read(user) != null) {
-                return userDAO.read(user);
-            } else {
-                return "";
-            }
+            return userDAO.read(user);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

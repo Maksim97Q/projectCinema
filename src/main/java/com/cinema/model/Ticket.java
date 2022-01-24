@@ -1,5 +1,6 @@
-package com.cinema.hibernate;
+package com.cinema.model;
 
+import com.cinema.hibernate.Worker;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,9 +24,9 @@ public class Ticket implements Serializable {
     private int place_number;
     @Column
     private String data;
-    @OneToOne
-    @JoinColumn
-    private Worker worker;
+//    @OneToOne
+//    @JoinColumn
+//    private Worker worker;
 
     public Ticket(int price, int place_number, String data) {
         this.price = price;

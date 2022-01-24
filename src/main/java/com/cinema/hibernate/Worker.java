@@ -1,5 +1,6 @@
 package com.cinema.hibernate;
 
+import com.cinema.model.Ticket;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,20 +23,12 @@ public class Worker implements Serializable {
     @Column
     private int age;
     @Column
-    private int income;
-    @OneToOne(mappedBy = "worker", cascade = CascadeType.ALL)
-    private Ticket ticket;
+    private int income = 55;
+//    @OneToOne(mappedBy = "worker")
+//    private Ticket ticket;
 
-    public Worker(Integer id, String name, Integer age, Integer income) {
-        this.id = id;
+    public Worker(String name, int age) {
         this.name = name;
         this.age = age;
-        this.income = income;
-    }
-
-    public Worker(String name, int age, int income) {
-        this.name = name;
-        this.age = age;
-        this.income = income;
     }
 }

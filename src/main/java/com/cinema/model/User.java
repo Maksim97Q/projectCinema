@@ -1,18 +1,26 @@
 package com.cinema.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Data
-@ToString
-//@AllArgsConstructor
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Table(name = "users")
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String name;
+    @Column
     private String password;
+    @Column
     private String role;
 
     public User(int id, String name, String password) {
