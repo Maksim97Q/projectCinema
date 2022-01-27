@@ -2,7 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.cinema.dao.UserDAOImpl" %>
 <%@ page import="com.cinema.service.UserServiceImpl" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
