@@ -21,10 +21,4 @@ public class LoginListener implements HttpSessionAttributeListener {
         users.add((User) session.getAttribute("usersList"));
         session.setAttribute("usersList", users);
     }
-
-//    @Override
-//    public void attributeRemoved(HttpSessionBindingEvent se) {
-//        HttpSession session = se.getSession();
-//        users.remove(session.getAttribute("usersList"));
-//    }
 }

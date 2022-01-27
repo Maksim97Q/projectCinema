@@ -1,6 +1,5 @@
 package com.cinema.controller;
 
-import com.cinema.dao.UserDAOImpl;
 import com.cinema.model.User;
 import com.cinema.service.UserServiceImpl;
 import jakarta.servlet.ServletException;
@@ -11,15 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/Profile")
 public class ProfileServlet extends HttpServlet {
-    private final UserDAOImpl userDAO = UserServiceImpl.getUserDAO();
     private final UserServiceImpl userService = UserServiceImpl.getUserService();
     private final User user = UserServiceImpl.getUser();
-    private final List<User> users = userDAO.getUsers();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,7 +29,6 @@ public class ProfileServlet extends HttpServlet {
         if (optional.isPresent()) {
             switch (userService.read(user)) {
                 case "admin":
-                    request.getSession().setAttribute("usersList", users);
                     request.getRequestDispatcher("admin.jsp").include(request, response);
                     break;
                 case "user":

@@ -6,7 +6,6 @@ import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 public class Util {
@@ -20,7 +19,6 @@ public class Util {
             session.beginTransaction();
             session.save(worker);
             session.getTransaction().commit();
-            session.close();
             return true;
         }
         return false;
@@ -33,7 +31,6 @@ public class Util {
             session.beginTransaction();
             session.delete(worker1);
             session.getTransaction().commit();
-            session.close();
             return true;
         }
         return false;
@@ -41,10 +38,10 @@ public class Util {
 
     //+
     public int read(Worker worker) {
-        Query query = session.createQuery("FROM Worker WHERE name=:name AND age=:age", Worker.class)
+        Query<Worker> query = session.createQuery("FROM Worker WHERE name=:name AND age=:age", Worker.class)
                 .setParameter("name", worker.getName())
                 .setParameter("age", worker.getAge());
-        return ((Worker) query.getSingleResult()).getId();
+        return query.getSingleResult().getId();
     }
 
     //+
@@ -56,7 +53,6 @@ public class Util {
             worker1.setIncome(worker.getIncome());
             session.update(worker1);
             session.getTransaction().commit();
-            session.close();
             return true;
         }
         return false;

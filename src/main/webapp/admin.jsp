@@ -1,3 +1,7 @@
+<%@ page import="com.cinema.model.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.cinema.dao.UserDAOImpl" %>
+<%@ page import="com.cinema.service.UserServiceImpl" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +23,9 @@
 <body>
 
 <%
-    request.getSession().getAttribute("lists");
+    UserDAOImpl userDAO = UserServiceImpl.getUserDAO();
+    List<User> users = userDAO.getUsers();
+    request.getSession().setAttribute("usersList", users);
 %>
 <h2>Таблица всех пользователей</h2>
 <table class="table" style="width: 30%">

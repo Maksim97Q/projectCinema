@@ -4,8 +4,6 @@ import com.cinema.dao.UserDAOImpl;
 import com.cinema.model.User;
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.SQLException;
-
 @Slf4j
 public class UserServiceImpl implements UserService {
     private static final UserDAOImpl userDAO = new UserDAOImpl();
@@ -28,7 +26,7 @@ public class UserServiceImpl implements UserService {
     public boolean create(User user) {
         try {
             return userDAO.create(user);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -39,7 +37,7 @@ public class UserServiceImpl implements UserService {
         try {
             if (userDAO.delete(user))
                 return true;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -48,12 +46,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public String read(User user) {
         try {
-            return userDAO.read(user);
-
-        } catch (SQLException e) {
+            if (userDAO.read(user).equals("admin")) {
+                return "admin";
+            } else if (userDAO.read(user).equals("user")) {
+                return "user";
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 
     @Override
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
             if (userDAO.update(user)) {
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;

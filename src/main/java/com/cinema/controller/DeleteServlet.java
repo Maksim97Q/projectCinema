@@ -26,6 +26,7 @@ public class DeleteServlet extends HttpServlet {
         response.setContentType("text/html");
         User id = users.remove(Integer.parseInt(request.getParameter("id")));
         userService.delete(id);
+        request.getSession().setAttribute("usersList", users);
         request.getRequestDispatcher("link.jsp").include(request, response);
         request.getRequestDispatcher("admin.jsp").include(request, response);
     }
